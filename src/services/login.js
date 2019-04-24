@@ -1,5 +1,9 @@
 import request from '../utils/request';
 
+import config from '@/config';
+
+const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro;
+
 // 验证码ID
 export async function captchaID() {
   return request(`/v1/login/captchaid`);
@@ -7,7 +11,7 @@ export async function captchaID() {
 
 // 图形验证码
 export function captcha(id) {
-  return `/api/v1/login/captcha?id=${id}`;
+  return `${baseUrl}/api/v1/login/captcha?id=${id}`;
 }
 
 // 登录

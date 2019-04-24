@@ -3,6 +3,12 @@ import { notification } from 'antd';
 import moment from 'moment';
 import store from './store';
 
+import config from '@/config';
+
+const baseUrl = process.env.NODE_ENV === 'development' ? config.baseUrl.dev : config.baseUrl.pro;
+
+axios.defaults.baseURL = `${baseUrl}/api`;
+
 function checkAccessTokenExpires(expiresAt) {
   const now = moment().unix();
   if (expiresAt - now <= 0) {
@@ -44,7 +50,7 @@ async function getAccessToken() {
 export default async function request(url, options) {
   let showNotify = true;
   const opts = {
-    baseURL: '/api',
+    // baseURL: '/api',
     url,
     validateStatus() {
       return true;
